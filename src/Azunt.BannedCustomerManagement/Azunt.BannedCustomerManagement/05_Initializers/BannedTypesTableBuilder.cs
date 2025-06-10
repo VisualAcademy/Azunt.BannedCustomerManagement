@@ -100,6 +100,22 @@ namespace Azunt.BannedCustomerManagement
                     cmdCreate.ExecuteNonQuery();
                     _logger.LogInformation("BannedTypes table created.");
                 }
+
+                // Insert default rows if empty
+                var cmdCount = new SqlCommand("SELECT COUNT(*) FROM [dbo].[BannedTypes]", connection);
+                int rowCount = (int)cmdCount.ExecuteScalar();
+
+                if (rowCount == 0)
+                {
+                    var cmdInsert = new SqlCommand(@"
+                        INSERT INTO [dbo].[BannedTypes] (Active, CreatedAt, CreatedBy, Name)
+                        VALUES
+                            (1, SYSDATETIMEOFFSET(), 'System', 'Abusive Language'),
+                            (1, SYSDATETIMEOFFSET(), 'System', 'Malicious Spam')", connection);
+
+                    int inserted = cmdInsert.ExecuteNonQuery();
+                    _logger.LogInformation($"Default BannedTypes inserted: {inserted} rows.");
+                }
             }
         }
 
