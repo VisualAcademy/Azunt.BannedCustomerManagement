@@ -8,7 +8,7 @@
 
         <!-- 버전 정보 -->
         <PackageId>Azunt.BannedCustomerManagement</PackageId>
-        <VersionPrefix>1.0.1</VersionPrefix>
+        <VersionPrefix>1.0.2</VersionPrefix>
         <VersionSuffix></VersionSuffix>
 
         <!-- NuGet 기본 정보 -->
